@@ -17,5 +17,19 @@ axios.request(options).then(function (response) {
 });
 
 export const shazamCoreApi = createApi({
-    reducerPath: 'shazamCoreApi'
-})
+    reducerPath: 'shazamCoreApi',
+    baseQuery: fetchBaseQuery({
+      baseUrl: 'https://shazam-api6.p.rapidapi.com/shazam',
+      prepareHeaders: (headers) => {
+        headers.set('X-RapidAPI-Key','1dbfc08cf3msh0dc5eb7349bdf70p1cb960jsn83d2c093a2d1')
+      return headers;
+      }
+    }),
+    endpoints: (builder) => ({
+      getTopCharts: builder.query({query: () => '/top_tracks_country'})
+    })
+});
+
+export const {
+  useGetTopChartsQuery
+} = shazamCoreApi
